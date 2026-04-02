@@ -19,8 +19,8 @@ sorted by customer_last_name, then customer_first_ name. */
 --QUERY 2
 SELECT *
 FROM customer
-	WHERE customer_id BETWEEN 1 AND 10
-	ORDER BY customer_last_name, customer_first_name;
+	ORDER BY customer_last_name, customer_first_name
+	LIMIT 10;
 	
 
 --END QUERY
@@ -32,9 +32,8 @@ Limit to 25 rows of output. */
 --QUERY 3
 SELECT *
 FROM customer_purchases
-	WHERE product_id BETWEEN 4 AND 9
+	WHERE product_id IN (4, 9)
 	LIMIT 25;
-
 
 
 --END QUERY
