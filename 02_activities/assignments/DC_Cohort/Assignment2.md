@@ -55,9 +55,21 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
-```
-Your answer...
-```
+**ANSWER**
+Type 1 will overwrite data with new information and type 2 will track history by making new entries/row for each update. 
+A sample architecture for type 1:
+customer_addresses with fields:
+- customer_id (PK)
+- address
+‘customer_id’ is set as the primary key (PK), which has to be unique in the table. Any new entry with the customer_id will therefore replace/overwrite the existing entry for the given customer_id.
+A sample architecture for type 2:
+customer_addresses with fields:
+- customer_id_entry (PK)
+- customer_id  (FK)
+- address
+- current
+For this structure, customer_id is set to be a foreign key (FK) instead of the primary key. This allows multiple entries using the same customer_id while still keeping the customer_id info to link to other tables. The unique primary key here is set to be customer_id_entry which is set to be the customer_id with a number that keeps track of the nth entry to the table. The current field is a logical/Boolean to keep track of whether the current entry is the most recent address. 
+
 
 ***
 
@@ -190,6 +202,8 @@ Read: Boykis, V. (2019, October 16). _Neural nets are just people all the way do
 Consider, for example, concepts of labour, bias, LLM proliferation, moderating content, intersection of technology and society, ect. 
 
 
-```
-Your thoughts...
-```
+**Response**
+The article discusses how datasets used to train LLMs are often manually put together by a large group of people. In particular, the article talks about a public image dataset that is used to train visual object recognition models, which was put together by hundreds of thousands of manual-laborers (Turks and students) who annotated the pictures. This creates potential ethical concern because there may be biases in labelling, as well as offensive labels that can be placed on images of people. It is particularly concerning when these datasets are used to train AI models that may be important in a social context (e.g., for content moderation in social media) because it may reinforce harmful stereotypes. Furthermore, as these LLMs become more implemented in other industries (e.g. in research, medicine, or technology), having biases in the dataset may also cause further inequalities in access to services. 
+
+Beyond the possible ethical repercussions that biases in the training datasets may cause in the use of LLMs, the process of obtaining these datasets itself may seem somewhat ethically questionable because it seems to require lots of cheap labour. The article mentioned that the total cost of employing Mechanical Turks was overall cheaper compared to recruiting students, but it is unclear whether these Turks were employed under ethical labour standards and were paid sufficiently according to the minimum wage. Because these jobs tend to be remote, it is also unclear which labour regulations should be followed when employing Turks. Furthermore, because the dataset is generated using “cheap labour”, it may call into question the quality of the data that is used to train current LLMs. Given that these AI tools are becoming more prevalent in our daily lives, it may be increasingly important to raise awareness for potential biases and downfalls of these tools.
+
